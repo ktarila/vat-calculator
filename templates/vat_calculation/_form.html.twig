@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-4">
+        {{ form_row(form.monetaryValue)}}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.vatPercentage)}}
+    </div>
+    
+    <div class="col-3 d-flex align-items-center">
+        <div >
+        <button class="btn btn-primary">{{ button_label|default('Calculate') }}</button>
+    </div>
+    </div>
+    <div class="col-1">
+    {{ form_widget(form) }}
+</div>
+</div>
+{{ form_end(form) }}

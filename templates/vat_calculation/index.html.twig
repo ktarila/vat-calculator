@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VAT Calculator{% endblock %}
+
+{% block body %}
+    <h1>Vat Calculator</h1>
+
+
+    {{ include('vat_calculation/_form.html.twig') }}
+
+    <div class="">
+        {% include 'vat_calculation/_delete_form.html.twig' %}
+
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Monetary Value</th>
+                <th>VAT Percentage</th>
+                <th>VAT(Exclusive)</th>
+                <th>VAT(Exclusive Added)</th>
+                <th>VAT(Inclusive)</th>
+                <th>VAT(Inclusive Subtracted)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vat_calculation in vat_calculations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ vat_calculation.monetaryValue }}</td>
+                <td>{{ vat_calculation.vatPercentage }}</td>
+                <td>
+                    {{ vat_calculation.getVatExclusive() }}
+                </td>
+                <td>
+                    {{ vat_calculation.getVATExclusiveAdded() }}
+                </td>
+                <td>
+                    {{ vat_calculation.getVatInclusive() }}
+                </td>
+                <td>
+                    {{ vat_calculation.getVatInclusiveSubtracted() }}
+                </td>
+                    
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

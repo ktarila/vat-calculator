@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_vat_calculation_delete') }}" onsubmit="return confirm('Are you sure you want to clear the vat calculation history?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('clear-history') }}">
+    <button class="btn bg-danger text-white">Clear All</button>
+</form>
