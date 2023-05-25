@@ -14,12 +14,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/')]
 class VatCalculationController extends AbstractController
 {
     public function __construct(
         private VatCalculationRepository $vatCalculationRepository,
+        private SerializerInterface $serializer,
     ) {
     }
 
@@ -52,5 +54,19 @@ class VatCalculationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_vat_calculation_index');
+    }
+
+    #[Route('/download-as-csv', name: 'app_vat_calculation_get_csv', methods: ['GET'])]
+    public function getCSV(): Response
+    {
+        $vats = $this->vatCalculationRepository->findAll();
+        $csvContent = $this->serializer->serialize($vats, 'csv');
+
+        $response = new Response($csvContent);
+        $response->headers->set('Content-Encoding', 'UTF-8');
+        $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+        $response->headers->set('Content-Disposition', 'attachment; filename=vat-calc.csv');
+
+        return $response;
     }
 }
