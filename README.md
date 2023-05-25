@@ -1,6 +1,6 @@
-# VAT Calculator  Application
+# VAT Calculator Application
 
-A symfony application with vue frontend.
+A symfony application to Compute VAT.
 
 ## Setup
 
